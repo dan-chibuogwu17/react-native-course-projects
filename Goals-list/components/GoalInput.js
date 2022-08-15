@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { StyleSheet, TextInput, Button, View, Modal } from "react-native";
+import {
+  StyleSheet,
+  TextInput,
+  Button,
+  View,
+  Modal,
+  Image,
+} from "react-native";
 
 function GoalInput(props) {
   const [enteredGoalText, setEnteredGoalText] = useState("");
@@ -17,13 +24,24 @@ function GoalInput(props) {
   return (
     <Modal visible={props.visible} animationType="slide">
       <View style={styles.inputContainer}>
+        <Image
+          style={styles.image}
+          source={require("../assets/images/goal.png")}
+        />
         <TextInput
           placeholder="Your course goal!"
           style={styles.textInput}
           onChangeText={goalInputHandler}
           value={enteredGoalText}
         />
-        <Button title="add goal" onPress={addGoalHandler} />
+        <View style={styles.buttonContainer}>
+          <View style={styles.button}>
+            <Button title="Add Goal" onPress={addGoalHandler} color="#b180f0" />
+          </View>
+          <View style={styles.button}>
+            <Button title="Cancel" onPress={props.onCancel} color="#f31282" />
+          </View>
+        </View>
       </View>
     </Modal>
   );
@@ -32,20 +50,32 @@ function GoalInput(props) {
 export default GoalInput;
 
 const styles = StyleSheet.create({
+  image: {
+    width: 100,
+    height: 100,
+    margin: 16,
+  },
   textInput: {
-    width: "75%",
+    width: "100%",
     borderWidth: 1,
-    borderColor: "#cccccc",
-    padding: 8,
-    marginRight: 8,
+    borderColor: "#e4d0ff",
+    padding: 16,
+    backgroundColor: "#e4d0ff",
+    borderRadius: 6,
   },
   inputContainer: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
     alignItems: "center",
-    borderBottomWidth: 1,
-    borderBottomColor: "#cccccc",
-    marginBottom: 10,
+    padding: 16,
+    backgroundColor: "#311B6B",
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    marginTop: 16,
+  },
+  button: {
+    width: 100,
+    marginHorizontal: 8,
   },
 });
