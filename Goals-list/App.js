@@ -31,7 +31,7 @@ export default function App() {
   }
   return (
     <>
-      <StatusBar style="light" />
+      <StatusBar style="dark" />
       <View style={styles.appContainer}>
         <Button
           title="Add New Goal"
