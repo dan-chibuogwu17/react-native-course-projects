@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
     color: Colors.accent500,
     textAlign: "center",
     // borderWidth: 2,
-    // borderColor: Colors.primary500,
-    padding: 12,
+    // borderColor: Colors.primary800,
+    paddingHorizontal: 12,
+    paddingVertical: 2
   },
 });

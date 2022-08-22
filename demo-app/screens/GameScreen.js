@@ -1,8 +1,10 @@
-import { Text, View, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
 import Title from "../components/ui/Title";
 import { useState, useEffect } from "react";
 import NumberContainer from "../components/game/NumberContainer";
 import PrimaryButton from "../components/ui/PrimaryButtons";
+import Card from "../components/ui/Card";
+import InstructionText from "../components/ui/InstructionText";
 
 function generateRandomBetween(min, max, exclude) {
   const randomNum = Math.floor(Math.random() * (max - min)) + min;
@@ -18,11 +20,7 @@ let maxBoundary = 100;
 let minBoundary = 1;
 
 function GameScreen({ userNumber, gameIsOver }) {
-  const initialGuess = generateRandomBetween(
-    minBoundary,
-    maxBoundary,
-    userNumber
-  );
+  const initialGuess = generateRandomBetween(1, 100, userNumber);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
 
   useEffect(() => {
@@ -47,7 +45,6 @@ function GameScreen({ userNumber, gameIsOver }) {
     } else {
       minBoundary = currentGuess + 1;
     }
-    console.log(minBoundary, maxBoundary);
     const newRandomNumber = generateRandomBetween(
       minBoundary,
       maxBoundary,
@@ -60,8 +57,10 @@ function GameScreen({ userNumber, gameIsOver }) {
     <View style={styles.screen}>
       <Title>Opponent's Guess</Title>
       <NumberContainer>{currentGuess}</NumberContainer>
-      <View>
-        <Text>Higher or lower?</Text>
+      <Card>
+        <InstructionText style={styles.instructionText}>
+          Higher or lower?
+        </InstructionText>
         <View style={styles.btnContainer}>
           <View style={styles.btn}>
             <PrimaryButton onPress={nextGuessHandler.bind(this, "lower")}>
@@ -74,7 +73,7 @@ function GameScreen({ userNumber, gameIsOver }) {
             </PrimaryButton>
           </View>
         </View>
-      </View>
+      </Card>
       <View></View>
     </View>
   );
@@ -93,5 +92,8 @@ const styles = StyleSheet.create({
   },
   btn: {
     flex: 1,
+  },
+  instructionText: {
+    marginBottom: 16,
   },
 });
