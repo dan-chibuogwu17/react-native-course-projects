@@ -1,17 +1,45 @@
-import { StyleSheet, ImageBackground } from "react-native";
+import { StyleSheet, ImageBackground, SafeAreaView } from "react-native";
 import StartGameScreen from "./screens/StartGameScreen";
 import { LinearGradient } from "expo-linear-gradient";
+import { useState } from "react";
+import GameScreen from "./screens/GameScreen";
+import GameOverScreen from "./screens/GameOverScreen";
+import Colors from "./constants/color";
 
 export default function App() {
+  const [userNumber, setUserNumber] = useState();
+  const [gameIsOver, setGameIsOver] = useState();
+
+  function confirmedNumberHandler(userNumber) {
+    setUserNumber(userNumber);
+  }
+  function gameOverHandler() {
+    setGameIsOver(true);
+  }
+  let screen = <StartGameScreen confirmedNumber={confirmedNumberHandler} />;
+
+  if (userNumber) {
+    screen = (
+      <GameScreen userNumber={userNumber} gameIsOver={gameOverHandler} />
+    );
+  }
+
+  if (gameIsOver) {
+    screen = <GameOverScreen />;
+  }
+
   return (
-    <LinearGradient colors={["#72063c", "#ddb52f"]} style={styles.rootScreen}>
+    <LinearGradient
+      colors={[Colors.primary700, Colors.accent500]}
+      style={styles.rootScreen}
+    >
       <ImageBackground
-        source={require("./assets/back.jpeg")}
+        source={require("./assets/background.png")}
         resizeMode="cover"
         style={styles.rootScreen}
         imageStyle={styles.backgroundImage}
       >
-        <StartGameScreen />
+        <SafeAreaView style={styles.rootScreen}>{screen}</SafeAreaView>
       </ImageBackground>
     </LinearGradient>
   );
