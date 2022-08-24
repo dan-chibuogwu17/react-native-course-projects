@@ -8,5 +8,6 @@ export default InstructionText;
 const styles = StyleSheet.create({
   instructionText: {
     fontSize: 16,
+    fontFamily: "open-sans",
   },
 });

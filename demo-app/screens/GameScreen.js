@@ -1,21 +1,27 @@
-import { View, StyleSheet, Alert } from "react-native";
-import Title from "../components/ui/Title";
 import { useState, useEffect } from "react";
+import { View, StyleSheet, Alert } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+
+import Title from "../components/ui/Title";
 import NumberContainer from "../components/game/NumberContainer";
 import PrimaryButton from "../components/ui/PrimaryButtons";
 import Card from "../components/ui/Card";
 import InstructionText from "../components/ui/InstructionText";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
 function generateRandomBetween(min, max, exclude) {
   const randomNum = Math.floor(Math.random() * (max - min)) + min;
-
+  // we set the exclude here first so that the user's inputted number won't be guessed on first guess.
   if (randomNum === exclude) {
     return generateRandomBetween(min, max, exclude);
   } else {
     return randomNum;
   }
-}
 
+  Alert.alert("This can cause an error", "No valid output", [
+    { text: "I don hear", style: "cancel" },
+  ]);
+}
 let maxBoundary = 100;
 let minBoundary = 1;
 
@@ -28,6 +34,11 @@ function GameScreen({ userNumber, gameIsOver }) {
       gameIsOver();
     }
   }, [userNumber, currentGuess]);
+
+  useEffect(() => {
+    maxBoundary = 100;
+    minBoundary = 1;
+  }, []);
 
   function nextGuessHandler(direction) {
     // Remember that our random number generator only returns numbers between the min and max boundary with the minBoundary inclusive (excluding the max boundary an)
@@ -45,12 +56,15 @@ function GameScreen({ userNumber, gameIsOver }) {
     } else {
       minBoundary = currentGuess + 1;
     }
-    const newRandomNumber = generateRandomBetween(
-      minBoundary,
-      maxBoundary,
-      currentGuess
-    );
-    setCurrentGuess(newRandomNumber);
+
+    if (minBoundary !== maxBoundary) {
+      const newRandomNumber = generateRandomBetween(
+        minBoundary,
+        maxBoundary,
+        currentGuess
+      );
+      setCurrentGuess(newRandomNumber);
+    }
   }
 
   return (
@@ -64,12 +78,12 @@ function GameScreen({ userNumber, gameIsOver }) {
         <View style={styles.btnContainer}>
           <View style={styles.btn}>
             <PrimaryButton onPress={nextGuessHandler.bind(this, "lower")}>
-              -
+              <Ionicons name="md-remove" size={24} color="white" />
             </PrimaryButton>
           </View>
           <View style={styles.btn}>
             <PrimaryButton onPress={nextGuessHandler.bind(this, "higher")}>
-              +
+              <Ionicons name="md-add" size={24} color="white" />
             </PrimaryButton>
           </View>
         </View>
@@ -87,6 +101,7 @@ const styles = StyleSheet.create({
     padding: 24,
     marginTop: 10,
   },
+
   btnContainer: {
     flexDirection: "row",
   },
