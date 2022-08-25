@@ -32,7 +32,9 @@ export default function App() {
   function confirmedNumberHandler(userNumber) {
     setUserNumber(userNumber);
   }
-  function gameOverHandler() {
+
+  function gameOverHandler(numberOfRounds) {
+    setGuessRounds(numberOfRounds);
     setGameIsOver(true);
   }
   let screen = <StartGameScreen confirmedNumber={confirmedNumberHandler} />;
