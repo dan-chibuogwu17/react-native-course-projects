@@ -18,5 +18,7 @@ const styles = StyleSheet.create({
     // borderColor: Colors.primary800,
     paddingHorizontal: 12,
     paddingVertical: 2,
+    maxWidth: "90%",
+    // width: 300,
   },
 });
