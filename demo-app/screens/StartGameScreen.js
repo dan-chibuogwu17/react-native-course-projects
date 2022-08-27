@@ -6,11 +6,12 @@ import {
   useWindowDimensions,
   KeyboardAvoidingView,
   ScrollView,
+  Platform,
 } from "react-native";
 import PrimaryButton from "../components/ui/PrimaryButtons";
 import { useState } from "react";
-import Colors from "../constants/color.js";
-import Title from "../components/ui/Title.js";
+import Colors from "../constants/color";
+import Title from "../components/ui/Title";
 import Card from "../components/ui/Card";
 import InstructionText from "../components/ui/InstructionText";
 
