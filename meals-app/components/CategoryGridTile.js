@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
+    borderRadius: 16,
   },
   buttonPressed: {
     backgroundColor: "#00000020",
